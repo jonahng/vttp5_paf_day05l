@@ -19,7 +19,7 @@ public class RedisConfig {
     @Value("${redis.topic1}")
     private String redisTopic;
 
-    @Bean
+    @Bean("todo")
     RedisTemplate<String, Todo> redisTemplate(RedisConnectionFactory connFac,
     Jackson2JsonRedisSerializer<Todo> serializer){
         RedisTemplate<String, Todo> redisTemplate = new RedisTemplate<>();
@@ -48,6 +48,6 @@ public class RedisConfig {
     public MessageListenerAdapter listenerAdapter(ConsumerService redisConsumerService){
         MessageListenerAdapter adapter = new MessageListenerAdapter(redisConsumerService);
         adapter.setSerializer(new Jackson2JsonRedisSerializer<>(Todo.class));
-        return null;
+        return adapter;
     }
 }
