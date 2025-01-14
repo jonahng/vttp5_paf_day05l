@@ -3,6 +3,7 @@ package com.jonah.vttp5_paf_day05lproducer.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Producer;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,10 @@ public class ProducerService {
 
     @Value("${redis.topic1}")
     private String topic1;
+
+    public ProducerService(){
+        redisTemplate = new RedisTemplate<>();
+    }
 
     public void sendMessage(Todo todo){
         redisTemplate.convertAndSend(topic1, todo);
